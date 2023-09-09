@@ -8,9 +8,14 @@ class Person(models.Model):
     github_file_url = models.CharField(max_length=200, default='http://github.com/Amalagu')
     github_repo_url = models.CharField(max_length=200, default='http://github.com/Amalagu')
     day = models.DateTimeField(auto_now=True)
-    utc_time = models.DateTimeField(auto_now=True)
+    #utc_time = models.DateTimeField(format="%Y-%m-%dT%H:%M:%SZ")
+    utc = models.DateTimeField(auto_now=True)
     status = models.IntegerField(default=200)
 
+    @property
+    def utc_time(self):
+        return self.utc.strftime("%Y-%m-%dT%H:%M:%SZ")
+    
     @property
     def current_day(self):
         return self.day.strftime('%A')
